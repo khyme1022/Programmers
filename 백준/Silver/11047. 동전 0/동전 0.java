@@ -1,30 +1,35 @@
-import java.util.*;
 import java.io.*;
+import java.util.StringTokenizer;
 
 class Main {
-  public static int[] arr;
-  public static int cnt;
-  public static int N;
-  public static void main(String[] args) throws IOException{
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    StringTokenizer st = new StringTokenizer(br.readLine()," ");
-    N = Integer.parseInt(st.nextToken());
-    int K = Integer.parseInt(st.nextToken()); // 원
-    arr = new int[N];
-    cnt = 0;
-    for(int i=0;i<N;i++){
-      arr[i] = Integer.parseInt(br.readLine()); // 동전 가치
-    }
-    System.out.print(greedy(K));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-  }
-  public static int greedy(int won){
-    for(int i=N-1;i>=0;i--){
-      while(won>=arr[i]){
-        won -= arr[i];
-        cnt++;
-      }
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+        int N = Integer.parseInt(st.nextToken()); // 입력받을 동전의 개수 
+        int K = Integer.parseInt(st.nextToken()); // 목표 금액
+
+        int result = 0;
+
+        int[] arr = new int[N];
+        // 배열에 오름차순으로 사용가능한 돈 배열로 저장
+        for(int i=0;i<N;i++){
+            arr[i] = Integer.parseInt(br.readLine());
+        }
+
+        int j = N-1;
+        while(K>0){
+            if(K>=arr[j]){
+                K -= arr[j];
+                result++;
+            }
+            else {
+                j--;
+            }
+
+        }
+        System.out.println(result);
     }
-    return cnt;
-  }
 }
