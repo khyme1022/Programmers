@@ -1,10 +1,9 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-//ArrayList<ArrayList<Integer>>  사용하기
+//ArrayList<Integer[] 사용하기
 public class Main {
 
     static int visited[];
@@ -21,10 +20,10 @@ public class Main {
         ; // 시작 정점
 
         visited = new int[N + 1]; // 정점 수 +1 만큼 (1~N이라서) 방문 여부 배열
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        ArrayList<Integer>[] graph = new ArrayList[N+1];
 
         for (int i = 0; i <= N; i++) { // N+1개의 정점 생성 (0 때문)
-            graph.add(new ArrayList<>());
+            graph[i] = new ArrayList<>();
         } // 0~N 까지 생성
 
         for (int i = 0; i < M; i++) { // 간선 입력 받는 부분
@@ -32,12 +31,12 @@ public class Main {
             int start = Integer.parseInt(st2.nextToken());
             int end = Integer.parseInt(st2.nextToken());
 
-            graph.get(start).add(end);
-            graph.get(end).add(start);
+            graph[start].add(end);
+            graph[end].add(start);
             // 방향이 없는 무방향 간선이기 때문에 양쪽으로 이어준다.
         }
         for(int i=1;i<=N;i++){
-            Collections.sort(graph.get(i)); // 오름차순 정렬해주기 BFS는 Queue를 사용하기 때문에 정렬하고자하는 차순과 같게 정렬한다.
+            Collections.sort(graph[i]); // 오름차순 정렬해주기 BFS는 Queue를 사용하기 때문에 정렬하고자하는 차순과 같게 정렬한다.
         }
 
         bfs(R,graph);
@@ -57,12 +56,11 @@ public class Main {
     // Queue가 빌때까지 반복
     // 반복문
 
-    public static void bfs(int start, ArrayList<ArrayList<Integer>> graph){
+    public static void bfs(int start, ArrayList<Integer>[] graph){
         Queue<Integer> queue = new LinkedList<>();
         int seq = 1;
         queue.add(start);
         int index = 0;
-
         int node = 0;
 
         while(!queue.isEmpty()){
@@ -71,8 +69,8 @@ public class Main {
             visited[index] = seq++;
 
 
-            for(int i =0;i<graph.get(index).size();i++){
-                node = graph.get(index).get(i);
+            for(int i =0;i<graph[index].size();i++){
+                node = graph[index].get(i);
                 if(visited[node] == 0){ // 연결 되어 있고 아직 방문하지 않은 정점이면 Queue에 집어 넣는다.
                     queue.add(node);
                 }
