@@ -46,7 +46,8 @@ public class Main {
     }
 
     public static void DFS(int point,int depth){
-
+        if(chk) return;
+        
         if(depth==4){
             chk = true;
             return;
@@ -64,4 +65,4 @@ public class Main {
 
 }
 
-// DFS 돌려서 깊이가 N이랑 같아야함
+// DFS 돌려서 깊이가 4
