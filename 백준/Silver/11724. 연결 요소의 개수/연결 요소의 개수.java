@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,8 +37,6 @@ public class Main {
             if(!visit[i]) { // 해당 정점 미 방문 시 DFS 실행
                 result++;
                 DFS(i);
-            }else{ // 방문했을 시 패스
-                continue;
             }
         }
         System.out.println(result);
